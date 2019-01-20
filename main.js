@@ -3,6 +3,7 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const index = require('./routes/index'); //引入檔案
+const PORT = process.env.PORT || 5000; //local use 3000
 
 app.set('view engine', 'ejs');
 app.use('/', index);
@@ -15,6 +16,6 @@ io.on('connection', function (socket) {
     });
 });
 
-http.listen(3000, function () {
+http.listen(PORT, function () {
     console.log('listening on http://localhost:3000');
 });
