@@ -11,9 +11,9 @@ body {
     width: 500px;
     height: 500px;
     margin: 10vh auto; 
-    border: 2px #eee solid; 
+    border: 8px #eee solid;
     border-radius: 10px;  
-    box-shadow: 3px 5px 9px #ccc;
+    /* box-shadow: 3px 3px #ccc; */
     background-color: rgba(255, 255, 255, 1);
 }
 
@@ -33,18 +33,18 @@ body {
 }
 
 .room{
-    height: 380px;
+    height: 360px;
     display: flex;
+    word-wrap: break-word;
 }
 
 #messages {
-    height: 380px;
+    height: 360px;
     width: 500px;
     overflow-y: auto;
 } 
 
 form {
-    padding: 3px;
     width: 100%; 
     height: 50px;
     border-top: 1px #ddd solid;
@@ -52,25 +52,40 @@ form {
 }
 form input { 
     border: 0; 
-    padding: 10px; 
-    width: 90%; 
-    margin-right: .5%; 
+    width: 442px;
+    line-height: 50px;
+    margin-right: .5%;
 }
 
 form button { 
-    width: 9%; 
-    border: 2px solid #06D85F;
-    border-radius: 20px/50px;
+    height: 50px;
+    border: 1px solid #FFFFFF;
+    /* border-radius: 50px; */
+    background-color: #FFFFFF;
     color: #555;
     text-decoration: none;
     cursor: pointer;
     transition: all 0.3s ease-out;
 }
 
-button:hover {
-    background: #06D85F;
-}
+/* button:hover {
+    background: #555;
+} */
 
 p {
     color: #4CAF50;
+}
+
+#userPhoto{
+    width: 20px;
+    height: 20px;
+    border-radius: 25px;
+}
+
+#messages li span {
+    color: #555;
+}
+
+#messages li div > p {
+    padding-left: 20px;
 }
