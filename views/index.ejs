@@ -21,6 +21,10 @@
         <% }); %>
     </ul> -->
     <div class="container">
+        <div class="name">
+            <input type="text" id="name" placeholder="Please enter your nickname." autocomplete="off">
+            <button id="nameBtn">Confirm</button>
+        </div>
         <div class="main">
             <div class="header">
                 <img src="../static/image/Dmupb6BUwAAOsoD.jpg">
@@ -30,6 +34,12 @@
                 <ul id="messages">
                     <p>Welcome to the chat!</p>
                 </ul>
+            </div>
+            <div class="emoticons">
+                <p>Emotes</p>
+                <% items.forEach(function(item) { %>
+                <img src="../static/image/<%= item %>.png" id="<%= item %>">
+                <% }); %>
             </div>
             <form action="">
                 <input id="m" autocomplete="off" /><button>Send</button>

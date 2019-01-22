@@ -16,15 +16,93 @@ $(() => {
             return false;
         }
     });
-    socket.on('chat message', (msg) => {
-        $('#messages').append(`
-        <li>
-            <img id="userPhoto" src="../static/image/eggroll.PNG"/>
-            <span>一枚蛋捲</span>
-            <div>
+    // socket.on('chat message', (msg) => {
+    //     $('#messages').append(`
+    //     <li>
+    //         <img id="userPhoto" src="../static/image/eggroll.PNG"/>
+    //         <span>一枚蛋捲</span>
+    //         <div>
+    //             <p>${msg}</p>
+    //         </div>
+    //     </li>`);
+    //     //$('#messages').append($('<li>').text(msg));
+    //     $('#messages').scrollTop($('#messages')[0].scrollHeight); // 讓 scrollbar 一直滾到最下方。
+    // });
+
+    // Click to login.
+    $('#nameBtn').click(inputName);
+
+    // Press enter key to login.
+    $('#name').keyup((event) => {
+        if (event.which == 13) {
+            inputName();
+        }
+    });
+
+    function inputName () {
+        $('.name').hide();
+        socket.emit('login', $('#name').val());
+        return false;
+    }
+
+    // Click Emotes.
+    $('.emoticons img').click(showImage);
+
+    function showImage () {
+        var id = $(this).attr('id');
+        console.log(id);
+        socket.emit('sendImg', id);
+        return false;
+    }
+
+    // 接收貼圖
+    socket.on('receiveImg', (obj) => {
+        let image = obj.image;
+        let side = obj.side;
+        let name = obj.name;
+
+        if (side == 'imgleft') {
+            $('#messages').append(`
+            <li class="${side}">
+                <img id="userPhoto" src="../static/image/male.png"/>
+                <span>${name}</span>
+                <div>
+                    <img id="emote" src="../static/image/${image}.png"/>
+                </div>
+            </li>`);
+        }
+        else {
+            $('#messages').append(`
+            <li class="${side}">
+                <img src="../static/image/${image}.png"/>
+            </li>`);
+        }
+        //$('#messages').append($('<li>').text(msg));
+        $('#messages').scrollTop($('#messages')[0].scrollHeight); // 讓 scrollbar 一直滾到最下方。
+    });
+
+    // 接收訊息
+    socket.on('receiveMsg', (obj) => {
+        let name = obj.name;
+        let msg = obj.msg;
+        let side = obj.side;
+
+        if (side == 'left') {
+            $('#messages').append(`
+            <li class="${side}">
+                <img id="userPhoto" src="../static/image/male.png"/>
+                <span>${name}</span>
+                <div>
+                    <p>${msg}</p>
+                </div>
+            </li>`);
+        }
+        else {
+            $('#messages').append(`
+            <li class="${side}">
                 <p>${msg}</p>
-            </div>
-        </li>`);
+            </li>`);
+        }
         //$('#messages').append($('<li>').text(msg));
         $('#messages').scrollTop($('#messages')[0].scrollHeight); // 讓 scrollbar 一直滾到最下方。
     });

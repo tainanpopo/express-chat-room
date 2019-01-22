@@ -10,9 +10,40 @@ app.use('/', index);
 
 app.use('/static', express.static('static'))
 
+var user = [];
+
 io.on('connection', function (socket) {
+    socket.on('login', function (name) {
+        user.push(name);
+        socket.nickname = name;
+    });
+
     socket.on('chat message', function (msg) {
-        io.emit('chat message', msg);
+        socket.broadcast.emit('receiveMsg', {
+            name: socket.nickname,
+            msg: msg,
+            side: 'left'
+        });
+
+        socket.emit('receiveMsg', {
+            name: socket.nickname,
+            msg: msg,
+            side: 'right'
+        });
+    });
+
+    socket.on('sendImg', (msg) => {
+        socket.broadcast.emit('receiveImg', {
+            name: socket.nickname,
+            image: msg,
+            side: 'imgleft'
+        });
+
+        socket.emit('receiveImg', {
+            name: socket.nickname,
+            image: msg,
+            side: 'imgright'
+        });
     });
 });
 
