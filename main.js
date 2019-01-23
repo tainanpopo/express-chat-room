@@ -10,7 +10,9 @@ app.use('/', index);
 
 app.use('/static', express.static('static'))
 
-var user = [];
+let user = [];
+let items = ['SMOrc', 'FailFish', 'GivePLZ', 'TakeNRG', 'MingLee', 'Kappa', 'KappaPride', 'PogChamp', 'BibleThump',
+    'BloodTrail', 'HeyGuys', 'LUL', 'ResidentSleeper'];
 
 io.on('connection', function (socket) {
     socket.on('login', function (name) {
@@ -33,16 +35,21 @@ io.on('connection', function (socket) {
     });
 
     socket.on('sendImg', (msg) => {
+        console.log(msg.message);
         socket.broadcast.emit('receiveImg', {
             name: socket.nickname,
-            image: msg,
-            side: 'imgleft'
+            image: msg.id,
+            emoteSide: 'imgleft',
+            msg: msg.message,
+            side: 'left'
         });
 
         socket.emit('receiveImg', {
             name: socket.nickname,
-            image: msg,
-            side: 'imgright'
+            image: msg.id,
+            emoteSide: 'imgright',
+            msg: msg.message,
+            side: 'left'
         });
     });
 });

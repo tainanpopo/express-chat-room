@@ -108,7 +108,6 @@ form {
     width: 100%;
     height: 50px;
     border-top: 1px #ddd solid;
-    position: relative;
 }
 
 form input {
@@ -153,7 +152,6 @@ span {
 
 .left div>p {
     margin-right: 180px;
-    padding-left: 25px;
 }
 
 .right {
@@ -164,15 +162,13 @@ span {
     /* background: #c0c0c0;
     border-radius: 25px; */
     margin-left: 180px;
-    float: right;
-    padding-right: 25px;
-    text-align: center;
+    text-align: right;
     /* color: #FFFFFF; */
 }
 
 .imgleft #emote {
-    width: 20px;
-    margin-left: 25px;
+    width: 30%;
+    /* margin-left: 25px; */
 }
 
 .imgleft #userPhoto {
@@ -180,12 +176,20 @@ span {
     height: 20px;
 }
 
+.imgleft div {
+    width: 30%;
+}
+
 .imgright {
-    height: 20px;
-    padding-right: 25px;
+    height: 20%;
+}
+
+.imgright div {
+    float: right;
+    width: 30%;
 }
 
 .imgright img {
-    width: 20px;
+    width: 30%;
     float: right;
 }

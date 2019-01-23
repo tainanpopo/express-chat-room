@@ -1,5 +1,6 @@
 $(() => {
     const socket = io();
+    let emoteArray = [];
     $('form').submit((e) => {
         e.preventDefault(); // prevents page reloading
         let regu = "^[ ]+$"; // regular expression
@@ -11,8 +12,13 @@ $(() => {
             return false;
         }
         else {
+            socket.emit('sendImg', {
+                id: emoteArray,
+                message: $('#m').val()
+            });
             socket.emit('chat message', $('#m').val());
             $('#m').val('');
+            emoteArray = [];
             return false;
         }
     });
@@ -49,9 +55,11 @@ $(() => {
     $('.emoticons img').click(showImage);
 
     function showImage () {
-        var id = $(this).attr('id');
+        let id = $(this).attr('id');
+        emoteArray.push(id);
         console.log(id);
-        socket.emit('sendImg', id);
+        let old = $('#m').val();
+        $('#m').val(old + id);
         return false;
     }
 
@@ -59,24 +67,38 @@ $(() => {
     socket.on('receiveImg', (obj) => {
         let image = obj.image;
         let side = obj.side;
+        let emoteSide = obj.emoteSide;
         let name = obj.name;
+        let msg = obj.msg;
+        console.log('input val: ' + msg);
+        let content = '';
+        let contentEmote = '';
+        console.log(image.length);
+        for (i = 0; i < image.length; i++) {
+            content += `<img src="../static/image/${image[i]}.png" />`
+            contentEmote += `<img id="emote" src="../static/image/${image[i]}.png" />`
+        }
 
-        if (side == 'imgleft') {
+        if (emoteSide == 'imgleft') {
             $('#messages').append(`
-            <li class="${side}">
+            <li class="${emoteSide}">
                 <img id="userPhoto" src="../static/image/male.png"/>
                 <span>${name}</span>
                 <div>
-                    <img id="emote" src="../static/image/${image}.png"/>
+                    ${contentEmote}
                 </div>
             </li>`);
         }
         else {
             $('#messages').append(`
-            <li class="${side}">
-                <img src="../static/image/${image}.png"/>
+            <li class="${emoteSide}">
+                <div>
+                    ${content}
+                </div>
             </li>`);
         }
+        //<img id="emote" src="../static/image/${image}.png"/>
+        //<img src="../static/image/${image}.png"/>
         //$('#messages').append($('<li>').text(msg));
         $('#messages').scrollTop($('#messages')[0].scrollHeight); // 讓 scrollbar 一直滾到最下方。
     });
