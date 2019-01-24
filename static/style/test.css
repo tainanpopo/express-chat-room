@@ -28,7 +28,9 @@ body {
     height: 89%;
     border-right: 2px solid #eee;
     border-bottom: 2px solid #eee;
-    overflow-y: auto;
+    overflow-y: scroll;
+    scrollbar-color: #808080 #eee;
+    scrollbar-width: thin;
 }
 
 #main #conversation .left {
@@ -50,6 +52,8 @@ body {
     height: 89%;
     border-bottom: 2px solid #eee;
     overflow-y: auto;
+    scrollbar-color: #808080 #eee;
+    scrollbar-width: thin;
 }
 
 #main #emoticons img {
