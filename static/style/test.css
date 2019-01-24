@@ -1,0 +1,127 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    font: 25px "Microsoft JhengHei", Helvetica, Arial;
+}
+
+#main {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #c3c3c3;
+    display: -webkit-flex;
+    display: flex;
+    /* -webkit-align-content: center;
+    align-content: center; */
+    /*換行讓input form 移動到下面*/
+    flex-flow: wrap;
+}
+
+#main #conversation {
+    width: 95%;
+    height: 89%;
+    border-right: 2px solid #eee;
+    border-bottom: 2px solid #eee;
+    overflow-y: scroll;
+}
+
+#main #conversation .left {
+    width: 50%;
+    word-wrap: break-word;
+    padding-left: 10px;
+}
+
+#main #conversation .right {
+    margin-left: 50%;
+    width: 50%;
+    word-wrap: break-word;
+    text-align: right;
+    padding-right: 10px;
+}
+
+#main #emoticons {
+    width: 5%;
+    height: 89%;
+    border-bottom: 2px solid #eee;
+    overflow-y: scroll;
+}
+
+#main #emoticons img {
+    width: 100%;
+    cursor: pointer;
+}
+
+#main #form {
+    width: 100%;
+    height: 10%;
+}
+
+#form form {
+    width: 100%;
+    height: 100%;
+    display: -webkit-flex;
+    display: flex;
+    flex-flow: wrap;
+}
+
+#form form #m {
+    border: 0.5px solid #eee;
+    font-size: 50px;
+    width: 80%;
+    height: 100%;
+}
+
+#form form button {
+    width: 20%;
+    height: 100%;
+    border: 0.5px solid #eee;
+    cursor: pointer;
+    background-color: white;
+}
+
+.name {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    background-color: rgba(238, 238, 238, 0.8);
+    text-align: center;
+    padding-top: 35vh;
+}
+
+.name input {
+    width: 400px;
+    border: none;
+    border-bottom: 2px solid #bbb;
+    background-color: #f3f3f3;
+    font-size: 25px;
+    color: #555;
+    text-align: center;
+}
+
+.name button {
+    display: block;
+    width: 150px;
+    height: 35px;
+    margin: 0 auto;
+    border: none;
+    background-color: #805b6b;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 17px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+#userPhoto {
+    width: 20px;
+    height: 20px;
+}

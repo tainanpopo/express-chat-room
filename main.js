@@ -3,10 +3,12 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const index = require('./routes/index'); //引入檔案
+const test = require('./routes/test'); //引入檔案
 const PORT = process.env.PORT || 3000; //local use 3000, deploy use 5000
 
 app.set('view engine', 'ejs');
-app.use('/', index);
+// app.use('/', index);
+app.use('/', test);
 
 app.use('/static', express.static('static'))
 
@@ -24,34 +26,36 @@ io.on('connection', function (socket) {
         socket.broadcast.emit('receiveMsg', {
             name: socket.nickname,
             msg: msg,
-            side: 'left'
+            side: 'left',
+            emoteId: msg.emoteId
         });
 
         socket.emit('receiveMsg', {
             name: socket.nickname,
             msg: msg,
-            side: 'right'
+            side: 'right',
+            emoteId: msg.emoteId
         });
     });
 
-    socket.on('sendImg', (msg) => {
-        console.log(msg.message);
-        socket.broadcast.emit('receiveImg', {
-            name: socket.nickname,
-            image: msg.id,
-            emoteSide: 'imgleft',
-            msg: msg.message,
-            side: 'left'
-        });
+    // socket.on('sendImg', (msg) => {
+    //     console.log(msg.message);
+    //     socket.broadcast.emit('receiveImg', {
+    //         name: socket.nickname,
+    //         image: msg.id,
+    //         emoteSide: 'imgleft',
+    //         msg: msg.message,
+    //         side: 'left'
+    //     });
 
-        socket.emit('receiveImg', {
-            name: socket.nickname,
-            image: msg.id,
-            emoteSide: 'imgright',
-            msg: msg.message,
-            side: 'left'
-        });
-    });
+    //     socket.emit('receiveImg', {
+    //         name: socket.nickname,
+    //         image: msg.id,
+    //         emoteSide: 'imgright',
+    //         msg: msg.message,
+    //         side: 'left'
+    //     });
+    // });
 });
 
 http.listen(PORT, function () {
