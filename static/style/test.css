@@ -23,7 +23,7 @@ body {
     overflow-y: scroll;
     scrollbar-color: #808080 #000000;
     scrollbar-width: thin;
-    transition: width 2s;
+    transition: width 0.5s;
 }
 
 #gugu2525:hover {
@@ -47,7 +47,7 @@ body {
     overflow-y: scroll;
     scrollbar-color: #808080 #000000;
     scrollbar-width: thin;
-    transition: width 2s;
+    transition: width 0.5s;
 }
 
 #jinny:hover {
