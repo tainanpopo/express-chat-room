@@ -11,6 +11,25 @@ body {
     font: 25px "Microsoft JhengHei", Helvetica, Arial;
 }
 
+#gugu2525 {
+    display: none;
+    z-index: 1;
+    position: absolute;
+    right: 60px;
+    width: calc(50px * 6);
+    height: 114px;
+    background-color: #000000;
+    border: 1px solid #6441a4;
+    overflow-y: scroll;
+    scrollbar-color: #808080 #000000;
+    scrollbar-width: thin;
+}
+
+#gugu2525 img {
+    width: 50px;
+    cursor: pointer;
+}
+
 #main {
     width: 100%;
     height: 100%;
@@ -60,6 +79,21 @@ body {
 #main #emoticons img {
     width: 100%;
     cursor: pointer;
+}
+
+#main #emoticons button {
+    width: 100%;
+    height: 30px;
+    border: 1px solid #6441a4;
+    cursor: pointer;
+    background-color: #6441a4;
+    color: #ffffff;
+}
+
+#main #emoticons button:hover {
+    background: #7d5bbe;
+    border-color: #7d5bbe;
+    color: #ffffff;
 }
 
 #main #form {

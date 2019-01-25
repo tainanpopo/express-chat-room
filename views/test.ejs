@@ -17,12 +17,18 @@
         <input type="text" id="name" placeholder="Please enter your nickname." autocomplete="off">
         <button id="nameBtn">Confirm</button>
     </div>
+    <div id="gugu2525">
+        <% gugu2525.forEach(function(item) { %>
+        <img src="../static/image/<%= item %>.png" id="<%= item %>">
+        <% }); %>
+    </div>
     <div id="main">
         <div id="conversation"></div>
         <div id="emoticons">
             <% items.forEach(function(item) { %>
             <img src="../static/image/<%= item %>.png" id="<%= item %>">
             <% }); %>
+            <button>gugu</button>
         </div>
         <div id="form">
             <form action="">

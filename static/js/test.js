@@ -1,6 +1,7 @@
 $(() => {
     const socket = io();
     let emoteArray = [];
+    let click = false;
     $('form').submit((e) => {
         e.preventDefault(); // prevents page reloading
         let regu = "^[ ]+$"; // regular expression
@@ -96,4 +97,42 @@ $(() => {
         });
         return false;
     }
+
+    // Click gugu2525 Emotes.
+    $('#gugu2525 img').click(gugu2525InputEmotes);
+
+    function gugu2525InputEmotes () {
+        let id = $(this).attr('id');
+        emoteArray.push(id);
+        // console.log(id);
+        // let old = $('#m').val();
+        // $('#m').val(old + id);
+        socket.emit('chat message', {
+            emoteId: id,
+        });
+        return false;
+    }
+
+    // Click gugu2525Emotes button, show the gugu2525 block.
+    $('#main #emoticons button').click(gugu2525EmotesClick);
+
+    function gugu2525EmotesClick () {
+        if (!click) {
+            $('#gugu2525').css('display', 'block');
+            $('#gugu2525').css('top', $('#main #emoticons button').position().top);
+            click = true;
+        }
+        else {
+            $('#gugu2525').css('display', 'none');
+            click = false;
+        }
+        //console.log($('#main #emoticons button').position().top);
+        //({top: 200, left: 200, position:'absolute'});
+    };
+
+    $('#form form #m').click(mClick);
+
+    function mClick () {
+        $('#gugu2525').css('display', 'none');
+    };
 });
