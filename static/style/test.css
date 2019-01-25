@@ -16,13 +16,18 @@ body {
     z-index: 1;
     position: absolute;
     right: 60px;
-    width: calc(50px * 6);
+    width: calc(50px * 1);
     height: 114px;
     background-color: #000000;
     border: 1px solid #6441a4;
     overflow-y: scroll;
     scrollbar-color: #808080 #000000;
     scrollbar-width: thin;
+    transition: width 2s;
+}
+
+#gugu2525:hover {
+    width: calc(50px * 6);
 }
 
 #gugu2525 img {
@@ -35,13 +40,18 @@ body {
     z-index: 1;
     position: absolute;
     right: 60px;
-    width: calc(50px * 6);
+    width: calc(50px * 1);
     height: 114px;
     background-color: #000000;
     border: 1px solid #6441a4;
     overflow-y: scroll;
     scrollbar-color: #808080 #000000;
     scrollbar-width: thin;
+    transition: width 2s;
+}
+
+#jinny:hover {
+    width: calc(50px * 6);
 }
 
 #jinny img {
