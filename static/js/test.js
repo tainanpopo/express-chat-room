@@ -1,7 +1,6 @@
 $(() => {
     const socket = io();
     let emoteArray = [];
-    let click = false;
     $('form').submit((e) => {
         e.preventDefault(); // prevents page reloading
         let regu = "^[ ]+$"; // regular expression
@@ -113,19 +112,37 @@ $(() => {
         return false;
     }
 
+    // Click jinny Emotes.
+    $('#jinny img').click(jinnyInputEmotes);
+
+    function jinnyInputEmotes () {
+        let id = $(this).attr('id');
+        emoteArray.push(id);
+        // console.log(id);
+        // let old = $('#m').val();
+        // $('#m').val(old + id);
+        socket.emit('chat message', {
+            emoteId: id,
+        });
+        return false;
+    }
+
     // Click gugu2525Emotes button, show the gugu2525 block.
-    $('#main #emoticons button').click(gugu2525EmotesClick);
+    $('#main #emoticons #guguBtn').click(gugu2525EmotesClick);
 
     function gugu2525EmotesClick () {
-        if (!click) {
-            $('#gugu2525').css('display', 'block');
-            $('#gugu2525').css('top', $('#main #emoticons button').position().top);
-            click = true;
-        }
-        else {
-            $('#gugu2525').css('display', 'none');
-            click = false;
-        }
+        $('#gugu2525').css('display', 'block');
+        $('#gugu2525').css('top', $('#main #emoticons #guguBtn').position().top);
+        //console.log($('#main #emoticons button').position().top);
+        //({top: 200, left: 200, position:'absolute'});
+    };
+
+    // Click jinnyEmotes button, show the gugu2525 block.
+    $('#main #emoticons #jinnyBtn').click(jinnyEmotesClick);
+
+    function jinnyEmotesClick () {
+        $('#jinny').css('display', 'block');
+        $('#jinny').css('top', $('#main #emoticons #jinnyBtn').position().top);
         //console.log($('#main #emoticons button').position().top);
         //({top: 200, left: 200, position:'absolute'});
     };
@@ -134,5 +151,18 @@ $(() => {
 
     function mClick () {
         $('#gugu2525').css('display', 'none');
+        $('#jinny').css('display', 'none');
     };
+
+    $(document).mouseup(function (e) {
+        let containerJinny = $("#jinny");
+        let containerGugu2525 = $('#gugu2525');
+        // if the target of the click isn't the container nor a descendant of the container
+        if (!containerJinny.is(e.target) && containerJinny.has(e.target).length === 0) {
+            containerJinny.hide();
+        }
+        if (!containerGugu2525.is(e.target) && containerGugu2525.has(e.target).length === 0) {
+            containerGugu2525.hide();
+        }
+    });
 });

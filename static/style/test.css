@@ -30,6 +30,25 @@ body {
     cursor: pointer;
 }
 
+#jinny {
+    display: none;
+    z-index: 1;
+    position: absolute;
+    right: 60px;
+    width: calc(50px * 6);
+    height: 114px;
+    background-color: #000000;
+    border: 1px solid #6441a4;
+    overflow-y: scroll;
+    scrollbar-color: #808080 #000000;
+    scrollbar-width: thin;
+}
+
+#jinny img {
+    width: 50px;
+    cursor: pointer;
+}
+
 #main {
     width: 100%;
     height: 100%;

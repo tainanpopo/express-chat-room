@@ -22,13 +22,19 @@
         <img src="../static/image/<%= item %>.png" id="<%= item %>">
         <% }); %>
     </div>
+    <div id="jinny">
+        <% jinny.forEach(function(item) { %>
+        <img src="../static/image/<%= item %>.png" id="<%= item %>">
+        <% }); %>
+    </div>
     <div id="main">
         <div id="conversation"></div>
         <div id="emoticons">
             <% items.forEach(function(item) { %>
             <img src="../static/image/<%= item %>.png" id="<%= item %>">
             <% }); %>
-            <button>gugu</button>
+            <button id="guguBtn">gugu</button>
+            <button id="jinnyBtn">jinny</button>
         </div>
         <div id="form">
             <form action="">
