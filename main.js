@@ -27,14 +27,16 @@ io.on('connection', function (socket) {
             name: socket.nickname,
             msg: msg,
             side: 'left',
-            emoteId: msg.emoteId
+            emoteId: msg.emoteId,
+            message: msg.message
         });
 
         socket.emit('receiveMsg', {
             name: socket.nickname,
             msg: msg,
             side: 'right',
-            emoteId: msg.emoteId
+            emoteId: msg.emoteId,
+            message: msg.message
         });
     });
 

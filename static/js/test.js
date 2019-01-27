@@ -15,7 +15,9 @@ $(() => {
             //     emoteId: emoteArray,
             //     message: $('#m').val()
             // });
-            socket.emit('chat message', $('#m').val());
+            socket.emit('chat message', {
+                message: $('#m').val()
+            })
             $('#m').val('');
             emoteArray = []
             return false;
@@ -28,13 +30,17 @@ $(() => {
         let msg = obj.msg;
         let side = obj.side;
         let emoteId = obj.emoteId;
-        let content = '';
-        console.log('msg: ' + msg);
+        let message = obj.message;
+        let content = message;
+        console.log('message: ' + message);
         console.log('emoteId: ' + emoteId);
-        // content += `<span>${msg}</span>`;
         // for (let i = 0; i < emoteId.length; i++) {
         //     content += `<img src="../static/image/${emoteId[i]}.png"/>`;
         // }
+        let aa = message.length;
+        console.log(aa);
+        let res = message.substr(1, aa);
+        console.log(res);
 
         if (side == 'left') {
             if (emoteId != undefined) {
@@ -46,7 +52,7 @@ $(() => {
             else {
                 $('#conversation').append(`
                 <div class=${side}><img id="userPhoto" src="../static/image/male.png"/><span>${name}</span></div>
-                <div class=${side}><span>${msg}</span></div>
+                <div class=${side}><span>${message}</span></div>
             `);
             }
         }
@@ -59,7 +65,7 @@ $(() => {
             }
             else {
                 $('#conversation').append(`
-                <div class=${side}><span>${msg}</span></div>`);
+                <div class=${side}><span>${message}</span></div>`);
             }
         }
         //<div class=${side}>${content}</div>
@@ -88,12 +94,12 @@ $(() => {
     function inputEmotes () {
         let id = $(this).attr('id');
         emoteArray.push(id);
-        // console.log(id);
-        // let old = $('#m').val();
-        // $('#m').val(old + id);
-        socket.emit('chat message', {
-            emoteId: id,
-        });
+        console.log(id);
+        let old = $('#m').val();
+        $('#m').val(old + id + ' ');
+        // socket.emit('chat message', {
+        //     emoteId: id,
+        // });
         return false;
     }
 
@@ -127,6 +133,24 @@ $(() => {
         return false;
     }
 
+    // $('#main #emoticons #guguBtn').mouseenter(() => {
+    //     $('#gugu2525').css('display', 'block');
+    //     $('#gugu2525').css('top', $('#main #emoticons #guguBtn').position().top);
+    //     $('#gugu2525').css('width', 300);
+    // });
+    // $('#gugu2525').mouseenter(() => {
+    //     $('#gugu2525').css('display', 'block');
+    //     $('#gugu2525').css('top', $('#main #emoticons #guguBtn').position().top);
+    //     $('#gugu2525').css('width', 300);
+    // });
+
+    // $('#main #emoticons #guguBtn').mouseleave(() => {
+    //     $('#gugu2525').css('display', 'block');
+    // });
+    // $('#gugu2525').mouseleave(() => {
+    //     $('#gugu2525').css('display', 'none');
+    // });
+
     // Click gugu2525Emotes button, show the gugu2525 block.
     $('#main #emoticons #guguBtn').click(gugu2525EmotesClick);
 
@@ -157,6 +181,7 @@ $(() => {
     $(document).mouseup(function (e) {
         let containerJinny = $("#jinny");
         let containerGugu2525 = $('#gugu2525');
+        //當點擊的不是該區塊而且不是點擊到他的內部(底下)的任何元素，就hide
         // if the target of the click isn't the container nor a descendant of the container
         if (!containerJinny.is(e.target) && containerJinny.has(e.target).length === 0) {
             containerJinny.hide();
