@@ -203,16 +203,16 @@ $(() => {
         $('.jinny').css('display', 'none');
     };
 
-    $(document).mouseup(function (e) {
-        let containerJinny = $(".jinny");
-        let containerGugu2525 = $('.gugu2525');
-        //當點擊的不是該區塊而且不是點擊到他的內部(底下)的任何元素，就hide
-        // if the target of the click isn't the container nor a descendant of the container
-        if (!containerJinny.is(e.target) && containerJinny.has(e.target).length === 0) {
-            containerJinny.hide();
-        }
-        if (!containerGugu2525.is(e.target) && containerGugu2525.has(e.target).length === 0) {
-            containerGugu2525.hide();
-        }
-    });
+    // $(document).mouseup(function (e) {
+    //     let containerJinny = $(".jinny");
+    //     let containerGugu2525 = $('.gugu2525');
+    //     //當點擊的不是該區塊而且不是點擊到他的內部(底下)的任何元素，就hide
+    //     // if the target of the click isn't the container nor a descendant of the container
+    //     if (!containerJinny.is(e.target) && containerJinny.has(e.target).length === 0) {
+    //         containerJinny.hide();
+    //     }
+    //     if (!containerGugu2525.is(e.target) && containerGugu2525.has(e.target).length === 0) {
+    //         containerGugu2525.hide();
+    //     }
+    // });
 });
