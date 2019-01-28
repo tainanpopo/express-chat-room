@@ -32,8 +32,8 @@ $(() => {
         let message = obj.message;
         let content = '';
         let blank;
-        console.log('message: ' + message);
-        console.log('emoteId: ' + emoteId);
+        // console.log('message: ' + message);
+        // console.log('emoteId: ' + emoteId);
         while(blank !== -1){
             let checkMessage = false;
             blank = message.indexOf(' ');
@@ -72,7 +72,7 @@ $(() => {
                 checkMessage = false
             }
         }
-        console.log(content);
+        // console.log(content);
 
         if (side == 'left') {
             if (emoteId != undefined) {
@@ -124,7 +124,6 @@ $(() => {
 
     function inputEmotes () {
         let id = $(this).attr('id');
-        console.log(id);
         let old = $('#m').val();
         $('#m').val(old + id + ' ');
         return false;
@@ -135,7 +134,6 @@ $(() => {
 
     function gugu2525InputEmotes () {
         let id = $(this).attr('id');
-        console.log(id);
         let old = $('#m').val();
         $('#m').val(old + id + ' ');
         return false;
@@ -146,7 +144,6 @@ $(() => {
 
     function jinnyInputEmotes () {
         let id = $(this).attr('id');
-        console.log(id);
         let old = $('#m').val();
         $('#m').val(old + id + ' ');
         return false;
@@ -157,14 +154,12 @@ $(() => {
 
     function gugu2525EmotesClick () {
         let id = $('.gugu2525').attr('class');
-        console.log(id);
         if(id === 'gugu2525'){
             $('.gugu2525').css('display', 'block');
             $('.gugu2525').css('top', $('#main #emoticons #guguBtn').position().top);
             $('.gugu2525').toggleClass('show');
         }
         else{
-            console.log('???');
             $('.gugu2525').css('display', 'none');
             $('.gugu2525').css('top', $('#main #emoticons #guguBtn').position().top);
             $('.gugu2525').toggleClass('show');
@@ -178,14 +173,12 @@ $(() => {
 
     function jinnyEmotesClick () {
         let id = $('.jinny').attr('class');
-        console.log(id);
         if(id === 'jinny'){
             $('.jinny').css('display', 'block');
             $('.jinny').css('top', $('#main #emoticons #jinnyBtn').position().top);
             $('.jinny').toggleClass('jinnyshow');
         }
         else{
-            console.log('???');
             $('.jinny').css('display', 'none');
             $('.jinny').css('top', $('#main #emoticons #jinnyBtn').position().top);
             $('.jinny').toggleClass('jinnyshow');
