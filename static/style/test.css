@@ -11,12 +11,13 @@ body {
     font: 25px "Microsoft JhengHei", Helvetica, Arial;
 }
 
-#gugu2525 {
+.gugu2525 {
     display: none;
     z-index: 1;
     position: absolute;
     right: 60px;
-    width: calc(50px * 1 + 4px);
+    /* width: calc(50px * 1 + 4px); */
+    width: 0px;
     height: 114px;
     background-color: #000000;
     border: 1px solid #6441a4;
@@ -26,21 +27,28 @@ body {
     transition: width 0.5s;
 }
 
-#gugu2525:hover {
+.show {
+    display: block;
     width: calc(50px * 6);
 }
 
-#gugu2525 img {
+.jinnyshow {
+    display: block;
+    width: calc(50px * 6);
+}
+
+.gugu2525 img {
     width: 50px;
     cursor: pointer;
 }
 
-#jinny {
+.jinny {
     display: none;
     z-index: 1;
     position: absolute;
     right: 60px;
-    width: calc(50px * 1 + 4px);
+    /* width: calc(50px * 1 + 4px); */
+    width: 0px;
     height: 114px;
     background-color: #000000;
     border: 1px solid #6441a4;
@@ -50,11 +58,7 @@ body {
     transition: width 0.5s;
 }
 
-#jinny:hover {
-    width: calc(50px * 6);
-}
-
-#jinny img {
+.jinny img {
     width: 50px;
     cursor: pointer;
 }
