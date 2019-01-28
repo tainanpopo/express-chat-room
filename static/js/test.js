@@ -31,16 +31,45 @@ $(() => {
         let side = obj.side;
         let emoteId = obj.emoteId;
         let message = obj.message;
-        let content = message;
+        let content = '';
+        let blank;
+        let word = '';
         console.log('message: ' + message);
         console.log('emoteId: ' + emoteId);
         // for (let i = 0; i < emoteId.length; i++) {
         //     content += `<img src="../static/image/${emoteId[i]}.png"/>`;
         // }
-        let aa = message.length;
-        console.log(aa);
-        let res = message.substr(1, aa);
-        console.log(res);
+        while(blank !== -1){
+            blank = message.indexOf(' ');
+            let res = message.substr(0, blank);
+            console.log('res: ' + res);
+            message = message.substr(blank + 1, message.length);
+            console.log('after substr: ' + message);
+            if(res !== '' || message == 'LUL' || message == 'Kappa'){
+                if(res == 'LUL' || res == 'Kappa'){
+                    console.log('res in if: ' + res);
+                    console.log(res.length);
+                    content += `<img src="../static/image/${res}.png"/>`;
+                }
+                else{
+                    content += res;
+                }
+            }
+            console.log('message: ' + message);
+            console.log(message.length);
+            console.log('content: ' + content);
+        }
+        if(message !== ''){
+            if( message == 'LUL' || message == 'Kappa'){
+                console.log('content in if: ' + message);
+                console.log(message.length);
+                content += `<img src="../static/image/${message}.png"/>`;
+            }
+            else{
+                content += message;
+            }
+        }
+        console.log(content);
 
         if (side == 'left') {
             if (emoteId != undefined) {
@@ -65,7 +94,7 @@ $(() => {
             }
             else {
                 $('#conversation').append(`
-                <div class=${side}><span>${message}</span></div>`);
+                <div class=${side}><span>${content}</span></div>`);
             }
         }
         //<div class=${side}>${content}</div>
