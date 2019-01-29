@@ -74,7 +74,7 @@ body {
     flex-flow: wrap;
 }
 
-#main #channel{
+#main #channel {
     width: 70%;
     height: 93%;
     overflow-y: scroll;
@@ -96,7 +96,7 @@ body {
     background-size: cover;
 }
 
-#main #conversation img{
+#main #conversation img {
     width: 30px;
 }
 
@@ -217,6 +217,27 @@ body {
     font-size: 17px;
     margin-top: 20px;
     cursor: pointer;
+}
+
+h5 {
+    margin: 0% auto;
+    width: calc(0.83em * 4 - 0.1em);
+    border-right: 1px solid;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 3s steps(3), caret 1s steps(1) infinite;
+}
+
+@keyframes caret {
+    50% {
+        border-color: transparent;
+    }
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
 }
 
 #userPhoto {
