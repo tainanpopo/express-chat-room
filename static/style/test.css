@@ -8,7 +8,7 @@
 body {
     width: 100vw;
     height: 100vh;
-    font: 25px "Microsoft JhengHei", Helvetica, Arial;
+    font: 20px "Microsoft JhengHei", Helvetica, Arial;
 }
 
 .gugu2525 {
@@ -74,14 +74,30 @@ body {
     flex-flow: wrap;
 }
 
+#main #channel{
+    width: 70%;
+    height: 93%;
+    overflow-y: scroll;
+    color: #ffffff;
+    scrollbar-color: #808080 #000000;
+    scrollbar-width: thin;
+    background-color: #000000;
+    background-size: cover;
+    text-align: center;
+}
+
 #main #conversation {
-    width: calc(100% - 50px);
+    width: calc(30% - 50px);
     height: 93%;
     overflow-y: scroll;
     scrollbar-color: #808080 #000000;
     scrollbar-width: thin;
     background-color: #000000;
     background-size: cover;
+}
+
+#main #conversation img{
+    width: 30px;
 }
 
 #main #conversation .left {
@@ -205,5 +221,4 @@ body {
 
 #userPhoto {
     width: 20px;
-    height: 20px;
 }

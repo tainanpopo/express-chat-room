@@ -43,7 +43,8 @@ $(() => {
                     checkMessage = false;
                 }
                 else { // 如果不是，一樣要把使用者輸入的文字暫存到 content
-                    content += res + ' '; // 輸入英文的話會有單字之間的空白問題，中文也一樣
+                    let tmp = ' ';
+                    content += `<span>${res}${tmp}</span>`; // 輸入英文的話會有單字之間的空白問題，中文也一樣
                     checkMessage = false;
                 }
             }
@@ -61,7 +62,8 @@ $(() => {
                 checkMessage = false
             }
             else {
-                content += message + ' '; // 輸入英文的話會有單字之間的空白問題，中文也一樣
+                let tmp = ' ';
+                content += `<span>${message}${tmp}</span>`; // 輸入英文的話會有單字之間的空白問題，中文也一樣
                 checkMessage = false
             }
         }
