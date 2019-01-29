@@ -1,10 +1,5 @@
 $(() => {
     const socket = io();
-    let twitchDefault =  ['SMOrc', 'FailFish', 'GivePLZ', 'TakeNRG', 'MingLee', 'Kappa', 'KappaPride', 
-            'PogChamp', 'BibleThump', 'BloodTrail', 'HeyGuys', 'LUL', 'ResidentSleeper', 'gugu1Cc', 'gugu1Face', 
-            'gugu11', 'gugu12god', 'gugu18', 'gugu1Angel55', 'gugu1Baka', 'gugu1Annoyed','gugu1Bb', 'gugu1ChuL', 
-            'gugu1ChuR', 'gugu1S2', 'gugu1S', 'gugu1TT', 'gugu1Dance', 'jinnytOMEGALUL', 'jinnytHype', 'jinnytREE']
-
     $('form').submit((e) => {
         e.preventDefault(); // prevents page reloading
         let regu = "^[ ]+$"; // regular expression
@@ -25,81 +20,62 @@ $(() => {
 
     // 接收訊息
     socket.on('receiveMsg', (obj) => {
-        let name = obj.name;
-        let msg = obj.msg;
-        let side = obj.side;
-        let emoteId = obj.emoteId;
-        let message = obj.message;
-        let content = '';
-        let blank;
+        let name = obj.name; //user name
+        let emoteDefault = obj.emoteDefault; // twitch emote
+        let side = obj.side; // decide the conversation side
+        let message = obj.message; // the message user send
+        let content = ''; // temporary store the message to show in the chat room
+        let blank; // find the index of the message
         // console.log('message: ' + message);
-        // console.log('emoteId: ' + emoteId);
-        while(blank !== -1){
+        while (blank !== -1) { // 只要還有空白就繼續判斷是貼圖或是文字
             let checkMessage = false;
-            blank = message.indexOf(' ');
-            let res = message.substr(0, blank);
-            message = message.substr(blank + 1, message.length);
-            if(res !== ''){
-                for(let i = 0;i < twitchDefault.length;i++){
-                    if(twitchDefault[i] === res){
+            blank = message.indexOf(' '); // find the index of the message
+            let res = message.substr(0, blank);  // capture the substr before the blank
+            message = message.substr(blank + 1, message.length); // 把找到的單字或是貼圖(貼圖為字串)從 message 切割
+            if (res !== '') { // 開始判斷 res 是貼圖還是單字
+                for (let i = 0; i < emoteDefault.length; i++) { // 從 socket 回傳的貼圖表搜尋是否為貼圖
+                    if (emoteDefault[i] === res) {
                         checkMessage = true;
                     }
                 }
-                if(checkMessage === true){
+                if (checkMessage === true) { // 如果是貼圖就把 res 輸入到 img tag，然後暫存到 content
                     content += `<img src="../static/image/${res}.png"/>`;
                     checkMessage = false;
                 }
-                else{
-                    content += res;
+                else { // 如果不是，一樣要把使用者輸入的文字暫存到 content
+                    content += res + ' '; // 輸入英文的話會有單字之間的空白問題，中文也一樣
                     checkMessage = false;
                 }
             }
         }
-
+        // 當 message 沒有空白之後，還是會有剩餘的字串，一樣去判斷是貼圖還是單字
         let checkMessage = false;
-        if(message !== ''){
-            for(let i = 0;i < twitchDefault.length;i++){
-                if(twitchDefault[i] === message){
+        if (message !== '') {
+            for (let i = 0; i < emoteDefault.length; i++) {
+                if (emoteDefault[i] === message) {
                     checkMessage = true;
                 }
             }
-            if(checkMessage === true){
+            if (checkMessage === true) {
                 content += `<img src="../static/image/${message}.png"/>`;
                 checkMessage = false
             }
-            else{
-                content += message;
+            else {
+                content += message + ' '; // 輸入英文的話會有單字之間的空白問題，中文也一樣
                 checkMessage = false
             }
         }
         // console.log(content);
 
         if (side == 'left') {
-            if (emoteId != undefined) {
-                $('#conversation').append(`
+            $('#conversation').append(`
                 <div class=${side}><img id="userPhoto" src="../static/image/male.png"/><span>${name}</span></div>
-                <div class=${side}><img src="../static/image/${emoteId}.png"/></div>
-            `);
-            }
-            else {
-                $('#conversation').append(`
-                <div class=${side}><img id="userPhoto" src="../static/image/male.png"/><span>${name}</span></div>
-                <div class=${side}><span>${content}</span></div>
-            `);
-            }
+                <div class=${side}><span>${content}</span></div>`);
         }
         else {
-            if (emoteId != undefined) {
-                $('#conversation').append(`
-                <div class=${side}><img src="../static/image/${emoteId}.png"/></div>
-            `);
-            }
-            else {
-                $('#conversation').append(`
-                <div class=${side}><span>${content}</span></div>`);
-            }
+            $('#conversation').append(`
+            <div class=${side}><span>${content}</span></div>`);
         }
-        //<div class=${side}>${content}</div>
         $('#conversation').scrollTop($('#conversation')[0].scrollHeight); // 讓 scrollbar 一直滾到最下方。
     });
 
@@ -113,16 +89,31 @@ $(() => {
         }
     });
 
-    function inputName () {
+    function inputName() {
         $('.name').hide();
         socket.emit('login', $('#name').val());
         return false;
     }
 
-    // Click Emotes.
-    $('#emoticons img').click(inputEmotes);
+    // $('#form form button').click(mClick);
+    $('#form form #m').click(mClick);
 
-    function inputEmotes () {
+    function mClick() {
+        // 當 class 切換至 gugu2525 show 時，就不要再 toggle，當點擊到輸入框或者是再次點擊按鈕才關閉 guguBtn
+        let id = $('.gugu2525').attr('class');
+        if (id !== 'gugu2525') {
+            $('.gugu2525').css('display', 'none');
+            $('.gugu2525').toggleClass('show');
+        }
+
+        // $('.jinny').toggleClass('jinnyshow');
+        // $('.jinny').css('display', 'none');
+    };
+
+    // Click Emotes.
+    $('#emoticons img').click(defaultEmotesClick);
+
+    function defaultEmotesClick() {
         let id = $(this).attr('id');
         let old = $('#m').val();
         $('#m').val(old + id + ' ');
@@ -130,19 +121,9 @@ $(() => {
     }
 
     // Click gugu2525 Emotes.
-    $('.gugu2525 img').click(gugu2525InputEmotes);
+    $('.gugu2525 img').click(gugu2525EmotesClick);
 
-    function gugu2525InputEmotes () {
-        let id = $(this).attr('id');
-        let old = $('#m').val();
-        $('#m').val(old + id + ' ');
-        return false;
-    }
-
-    // Click jinny Emotes.
-    $('.jinny img').click(jinnyInputEmotes);
-
-    function jinnyInputEmotes () {
+    function gugu2525EmotesClick() {
         let id = $(this).attr('id');
         let old = $('#m').val();
         $('#m').val(old + id + ' ');
@@ -150,16 +131,17 @@ $(() => {
     }
 
     // Click gugu2525Emotes button, show the gugu2525 block.
-    $('#main #emoticons #guguBtn').click(gugu2525EmotesClick);
+    $('#main #emoticons #guguBtn').click(gugu2525ButtonClick);
 
-    function gugu2525EmotesClick () {
+    function gugu2525ButtonClick() {
         let id = $('.gugu2525').attr('class');
-        if(id === 'gugu2525'){
+        console.log(id);
+        if (id === 'gugu2525') {
             $('.gugu2525').css('display', 'block');
             $('.gugu2525').css('top', $('#main #emoticons #guguBtn').position().top);
             $('.gugu2525').toggleClass('show');
         }
-        else{
+        else {
             $('.gugu2525').css('display', 'none');
             $('.gugu2525').css('top', $('#main #emoticons #guguBtn').position().top);
             $('.gugu2525').toggleClass('show');
@@ -168,33 +150,32 @@ $(() => {
         //({top: 200, left: 200, position:'absolute'});
     };
 
+    // Click jinny Emotes.
+    // $('.jinny img').click(jinnyEmotesClick);
+
+    // function jinnyEmotesClick () {
+    //     let id = $(this).attr('id');
+    //     let old = $('#m').val();
+    //     $('#m').val(old + id + ' ');
+    //     return false;
+    // }
+
     // Click jinnyEmotes button, show the jinny block.
-    $('#main #emoticons #jinnyBtn').click(jinnyEmotesClick);
+    // $('#main #emoticons #jinnyBtn').click(jinnyButtonClick);
 
-    function jinnyEmotesClick () {
-        let id = $('.jinny').attr('class');
-        if(id === 'jinny'){
-            $('.jinny').css('display', 'block');
-            $('.jinny').css('top', $('#main #emoticons #jinnyBtn').position().top);
-            $('.jinny').toggleClass('jinnyshow');
-        }
-        else{
-            $('.jinny').css('display', 'none');
-            $('.jinny').css('top', $('#main #emoticons #jinnyBtn').position().top);
-            $('.jinny').toggleClass('jinnyshow');
-        }
-        //console.log($('#main #emoticons button').position().top);
-        //({top: 200, left: 200, position:'absolute'});
-    };
-
-    $('#form form #m').click(mClick);
-
-    function mClick () {
-        $('.gugu2525').toggleClass('show');
-        $('.jinny').toggleClass('jinnyshow');
-        $('.gugu2525').css('display', 'none');
-        $('.jinny').css('display', 'none');
-    };
+    // function jinnyButtonClick () {
+    //     let id = $('.jinny').attr('class');
+    //     if(id === 'jinny'){
+    //         $('.jinny').css('display', 'block');
+    //         $('.jinny').css('top', $('#main #emoticons #jinnyBtn').position().top);
+    //         $('.jinny').toggleClass('jinnyshow');
+    //     }
+    //     else{
+    //         $('.jinny').css('display', 'none');
+    //         $('.jinny').css('top', $('#main #emoticons #jinnyBtn').position().top);
+    //         $('.jinny').toggleClass('jinnyshow');
+    //     }
+    // };
 
     // $(document).mouseup(function (e) {
     //     let containerJinny = $(".jinny");

@@ -13,8 +13,10 @@ app.use('/', test);
 app.use('/static', express.static('static'))
 
 let user = [];
-let items = ['SMOrc', 'FailFish', 'GivePLZ', 'TakeNRG', 'MingLee', 'Kappa', 'KappaPride', 'PogChamp', 'BibleThump',
-    'BloodTrail', 'HeyGuys', 'LUL', 'ResidentSleeper'];
+let twitchDefault =  ['SMOrc', 'FailFish', 'GivePLZ', 'TakeNRG', 'MingLee', 'Kappa', 'KappaPride', 
+    'PogChamp', 'BibleThump', 'BloodTrail', 'HeyGuys', 'LUL', 'ResidentSleeper', 'gugu1Cc', 'gugu1Face', 
+    'gugu11', 'gugu12god', 'gugu18', 'gugu1Angel55', 'gugu1Baka', 'gugu1Annoyed','gugu1Bb', 'gugu1ChuL', 
+    'gugu1ChuR', 'gugu1S2', 'gugu1S', 'gugu1TT', 'gugu1Dance', 'jinnytOMEGALUL', 'jinnytHype', 'jinnytREE']
 
 io.on('connection', function (socket) {
     socket.on('login', function (name) {
@@ -25,17 +27,15 @@ io.on('connection', function (socket) {
     socket.on('chat message', function (msg) {
         socket.broadcast.emit('receiveMsg', {
             name: socket.nickname,
-            msg: msg,
+            emoteDefault: twitchDefault,
             side: 'left',
-            emoteId: msg.emoteId,
             message: msg.message
         });
 
         socket.emit('receiveMsg', {
             name: socket.nickname,
-            msg: msg,
+            emoteDefault: twitchDefault,
             side: 'right',
-            emoteId: msg.emoteId,
             message: msg.message
         });
     });
