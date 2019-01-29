@@ -95,11 +95,11 @@ $(() => {
         return false;
     }
 
-    // $('#form form button').click(mClick);
-    $('#form form #m').click(mClick);
+    $('#form form button').click(mClick);
+    //$('#form form #m').click(mClick);
 
     function mClick() {
-        // 當 class 切換至 gugu2525 show 時，就不要再 toggle，當點擊到輸入框或者是再次點擊按鈕才關閉 guguBtn
+        // 當 class 切換至 gugu2525 show 時，就不要再 toggle，當送出文字或者是再次點擊按鈕才關閉 guguBtn
         let id = $('.gugu2525').attr('class');
         if (id !== 'gugu2525') {
             $('.gugu2525').css('display', 'none');
