@@ -1,20 +1,25 @@
 $(() => {
     const socket = io();
-    $('form').submit((e) => {
-        e.preventDefault(); // prevents page reloading
-        let regu = "^[ ]+$"; // regular expression
-        let re = new RegExp(regu);
-        // Returns a Boolean value that indicates whether or not a pattern exists in a searched string.
-        // 防止啥都沒打跟只打了一堆空白就送出
-        if (re.test($('#m').val()) == true || $('#m').val() == '') {
-            return false;
-        }
-        else {
-            socket.emit('chat message', {
-                message: $('#m').val()
-            })
-            $('#m').val('');
-            return false;
+
+    // 傳送訊息
+    $('#m').keypress((e) => {
+        let code = (e.keyCode ? e.keyCode : e.which);
+        if (code == 13) {
+            let regu = "^[ ]+$"; // regular expression
+            let re = new RegExp(regu);
+            // Returns a Boolean value that indicates whether or not a pattern exists in a searched string.
+            // 防止啥都沒打跟只打了一堆空白就送出
+            if (re.test($('#m').val()) == true || $('#m').val() == '') {
+                return false;
+            }
+            else {
+                console.log($('#m').val());
+                socket.emit('chat message', {
+                    message: $('#m').val()
+                })
+                $('#m').val('');
+                return false;
+            }
         }
     });
 
@@ -22,7 +27,6 @@ $(() => {
     socket.on('receiveMsg', (obj) => {
         let name = obj.name; //user name
         let emoteDefault = obj.emoteDefault; // twitch emote
-        let side = obj.side; // decide the conversation side
         let message = obj.message; // the message user send
         let content = ''; // temporary store the message to show in the chat room
         let blank; // find the index of the message
@@ -67,17 +71,13 @@ $(() => {
                 checkMessage = false
             }
         }
-        // console.log(content);
+        // console.log(content);<button class="btn"></button>
+        $('#conversation').append(`
+            <div class="left"><span>${name}:</span>${content}</div>`);
 
-        if (side == 'left') {
-            $('#conversation').append(`
-                <div class=${side}><img id="userPhoto" src="../static/image/male.png"/><span>${name}</span></div>
-                <div class=${side}><span>${content}</span></div>`);
-        }
-        else {
-            $('#conversation').append(`
-            <div class=${side}><span>${content}</span></div>`);
-        }
+        // $('#conversation').append(`
+        // <div class=${side}><span>${content}</span></div>`);
+
         $('#conversation').scrollTop($('#conversation').prop('scrollHeight'));
         //$('#conversation').scrollTop($('#conversation')[0].scrollHeight); // 讓 scrollbar 一直滾到最下方。
     });
@@ -98,30 +98,33 @@ $(() => {
         return false;
     }
 
-    $('#form form button').click(mClick);
-    //$('#form form #m').click(mClick);
+    $('#main #chat #send').click(sendMessage);
 
-    function mClick() {
+    function sendMessage() {
         // 當 class 切換至 gugu2525 show 時，就不要再 toggle，當送出文字或者是再次點擊按鈕才關閉 guguBtn
         let id = $('.gugu2525').attr('class');
         if (id !== 'gugu2525') {
             $('.gugu2525').css('display', 'none');
             $('.gugu2525').toggleClass('show');
         }
-
+        let regu = "^[ ]+$"; // regular expression
+        let re = new RegExp(regu);
+        // Returns a Boolean value that indicates whether or not a pattern exists in a searched string.
+        // 防止啥都沒打跟只打了一堆空白就送出
+        if (re.test($('#m').val()) == true || $('#m').val() == '') {
+            return false;
+        }
+        else {
+            console.log($('#m').val());
+            socket.emit('chat message', {
+                message: $('#m').val()
+            })
+            $('#m').val('');
+            return false;
+        }
         // $('.jinny').toggleClass('jinnyshow');
         // $('.jinny').css('display', 'none');
     };
-
-    // Click Emotes.
-    $('#emoticons img').click(defaultEmotesClick);
-
-    function defaultEmotesClick() {
-        let id = $(this).attr('id');
-        let old = $('#m').val();
-        $('#m').val(old + id + ' ');
-        return false;
-    }
 
     // Click gugu2525 Emotes.
     $('.gugu2525 img').click(gugu2525EmotesClick);
@@ -133,25 +136,23 @@ $(() => {
         return false;
     }
 
-    // Click gugu2525Emotes button, show the gugu2525 block.
-    $('#main #emoticons #guguBtn').click(gugu2525ButtonClick);
-
-    function gugu2525ButtonClick() {
+    $('#form form #emoteBtn').click(function () {
+        let yPos = $('#conversation').prop('scrollHeight');
         let id = $('.gugu2525').attr('class');
         console.log(id);
         if (id === 'gugu2525') {
             $('.gugu2525').css('display', 'block');
-            $('.gugu2525').css('top', $('#main #emoticons #guguBtn').position().top);
+            $('.gugu2525').css('top', yPos - 120);
             $('.gugu2525').toggleClass('show');
         }
         else {
             $('.gugu2525').css('display', 'none');
-            $('.gugu2525').css('top', $('#main #emoticons #guguBtn').position().top);
+            $('.gugu2525').css('top', yPos - 120);
             $('.gugu2525').toggleClass('show');
         }
-        //console.log($('#main #emoticons button').position().top);
-        //({top: 200, left: 200, position:'absolute'});
-    };
+        // console.log($('#main #emoticons button').position().top);
+        // ({top: 200, left: 200, position:'absolute'});
+    });
 
     // Click jinny Emotes.
     // $('.jinny img').click(jinnyEmotesClick);

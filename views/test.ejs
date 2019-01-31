@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chat Room</title>
     <link rel="stylesheet" href="../static/style/test.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+        crossorigin="anonymous">
 </head>
 
 <script src="/socket.io/socket.io.js"></script>
@@ -14,7 +16,9 @@
 
 <body>
     <div class="name">
-        <div class="cool"><h5>你好啊</h5></div>
+        <!-- <div class="cool">
+            <h5>你好啊</h5>
+        </div> -->
         <input type="text" id="name" placeholder="Please enter your nickname." autocomplete="off">
         <button id="nameBtn">Confirm</button>
     </div>
@@ -30,20 +34,25 @@
     </div>
     <div id="main">
         <div id="channel"></div>
-        <div id="conversation"></div>
-        <div id="emoticons">
+        <div id="chat">
+            <div id="conversation"></div>
+            <div id="form">
+                <form action="">
+                    <textarea id="m" placeholder="傳送訊息"></textarea>
+                    <div id="emote"><button id="emoteBtn" type="button"><i class="far fa-smile"></i></button></div>
+                    <!-- <input id="m" autocomplete=" off" /> -->
+                </form>
+            </div>
+            <div><button id="send" type="button">Send</button></div>
+        </div>
+        <!-- <div id="emoticons">
             <% items.forEach(function(item) { %>
             <img src="../static/image/<%= item %>.png" id="<%= item %>">
             <% }); %>
             <button id="guguBtn">gugu</button>
-            <!-- <button id="jinnyBtn">jinny</button> -->
-        </div>
-        <div id="form">
-            <form action="">
-                <input id="m" autocomplete=" off" /><button>Send</button>
-            </form>
-        </div>
+        </div> -->
     </div>
 </body>
+<!-- <button id="jinnyBtn">jinny</button> -->
 
 </html>

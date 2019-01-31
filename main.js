@@ -28,14 +28,12 @@ io.on('connection', function (socket) {
         socket.broadcast.emit('receiveMsg', {
             name: socket.nickname,
             emoteDefault: twitchDefault,
-            side: 'left',
             message: msg.message
         });
 
         socket.emit('receiveMsg', {
             name: socket.nickname,
             emoteDefault: twitchDefault,
-            side: 'right',
             message: msg.message
         });
     });

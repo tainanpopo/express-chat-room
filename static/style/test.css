@@ -8,28 +8,47 @@
 body {
     width: 100vw;
     height: 100vh;
-    font: 20px "Microsoft JhengHei", Helvetica, Arial;
+    font-size: 18px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #000000;
+}
+
+::-webkit-input-placeholder {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+:-moz-placeholder {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+::-moz-placeholder {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+:-ms-input-placeholder {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .gugu2525 {
     display: none;
     z-index: 1;
     position: absolute;
-    right: 60px;
+    right: 16px;
     /* width: calc(50px * 1 + 4px); */
-    width: 0px;
-    height: 114px;
+    width: 285px;
+    height: 0px;
     background-color: #000000;
+    border-radius: 4px;
     border: 1px solid #6441a4;
     overflow-y: scroll;
     scrollbar-color: #808080 #000000;
     scrollbar-width: thin;
-    transition: width 0.5s;
+    transition: height 1s;
 }
 
 .show {
     display: block;
-    width: calc(50px * 6);
+    height: 114px;
 }
 
 .jinnyshow {
@@ -101,8 +120,8 @@ body {
 }
 
 #main #channel {
-    width: 70%;
-    height: 93%;
+    width: calc(100% - 300px);
+    height: 100%;
     overflow-y: scroll;
     color: #ffffff;
     scrollbar-color: #808080 #000000;
@@ -112,9 +131,14 @@ body {
     text-align: center;
 }
 
-#main #conversation {
-    width: calc(30% - 50px);
-    height: 93%;
+#main #chat {
+    width: 300px;
+    height: 100%;
+}
+
+#main #chat #conversation {
+    width: 100%;
+    height: 88%;
     overflow-y: scroll;
     scrollbar-color: #808080 #000000;
     scrollbar-width: thin;
@@ -122,57 +146,26 @@ body {
     background-size: cover;
 }
 
-#main #conversation img {
+#main #chat #conversation img {
     width: 30px;
 }
 
-#main #conversation .left {
-    width: 50%;
+#main #chat #conversation .left {
     word-wrap: break-word;
     padding-left: 10px;
     color: #ffffff;
 }
 
-#main #conversation .right {
-    margin-left: 50%;
-    width: 50%;
-    word-wrap: break-word;
-    text-align: right;
-    padding-right: 10px;
-    color: #ffffff;
-}
-
-#main #emoticons {
-    width: 50px;
-    height: 93%;
-    overflow-y: scroll;
-    scrollbar-color: #808080 #000000;
-    scrollbar-width: thin;
-    background-color: #000000;
-}
-
-#main #emoticons img {
-    width: 100%;
+.btn {
+    background: url('../image/gugu1Yeah.png') no-repeat scroll 0 0 transparent;
     cursor: pointer;
+    width: 28px;
+    height: 28px;
+    border: none;
 }
 
-#main #emoticons button {
-    width: 100%;
-    height: 30px;
-    border: 1px solid #6441a4;
-    cursor: pointer;
-    background-color: #6441a4;
-    color: #ffffff;
-}
-
-#main #emoticons button:hover {
-    background: #7d5bbe;
-    border-color: #7d5bbe;
-    color: #ffffff;
-}
-
-#main #form {
-    width: 100%;
+#main #chat #form {
+    width: 95%;
     height: 7%;
 }
 
@@ -182,28 +175,59 @@ body {
     display: -webkit-flex;
     display: flex;
     flex-flow: wrap;
+    border-radius: 4px;
+    border: 1px solid #6441a4;
+}
+
+#form form:hover {
+    border-color: #7d5bbe;
+}
+
+#form form #emote {
+    width: 25px;
+    height: 100%;
+}
+
+#form form #emote #emoteBtn {
+    background-color: #000000;
+    color: #ffffff;
+    border-color: transparent;
+    cursor: pointer;
+    font-size: 20px;
+    float: right;
+    margin-top: 8%;
+    margin-right: 8%;
 }
 
 #form form #m {
-    outline: none; /*remove chrome outline*/
-    border: 1px solid #6441a4;
-    font-size: 50px;
-    width: calc(100% - 50px);
+    outline: none;
+    /*remove chrome outline*/
+    border: 1px solid #000000;
+    width: calc(100% - 25px);
     height: 100%;
     background-color: #000000;
     color: #ffffff;
+    resize: none;
+    overflow-y: scroll;
+    scrollbar-color: #808080 #000000;
+    scrollbar-width: thin;
 }
 
-#form form button {
-    width: 50px;
-    height: 100%;
+#main #chat #send {
+    width: 42px;
+    height: 30px;
+    margin-top: 2%;
+    float: right;
+    margin-right: 5%;
+    border-radius: 4px;
     border: 1px solid #6441a4;
     cursor: pointer;
     background-color: #6441a4;
     color: #ffffff;
+    text-align: center;
 }
 
-#form form button:hover {
+#main #chat #send:hover {
     background: #7d5bbe;
     border-color: #7d5bbe;
     color: #ffffff;
@@ -223,7 +247,8 @@ body {
 }
 
 .name input {
-    outline: none; /*remove chrome outline*/
+    outline: none;
+    /*remove chrome outline*/
     width: 400px;
     border: none;
     border-bottom: 2px solid #bbb;
