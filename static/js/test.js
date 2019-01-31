@@ -78,7 +78,8 @@ $(() => {
             $('#conversation').append(`
             <div class=${side}><span>${content}</span></div>`);
         }
-        $('#conversation').scrollTop($('#conversation')[0].scrollHeight); // 讓 scrollbar 一直滾到最下方。
+        $('#conversation').scrollTop($('#conversation').prop('scrollHeight'));
+        //$('#conversation').scrollTop($('#conversation')[0].scrollHeight); // 讓 scrollbar 一直滾到最下方。
     });
 
     // Click to login.
